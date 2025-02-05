@@ -1,13 +1,9 @@
-import {
-  DeleteResult,
-  EntityRepository,
-  Repository,
-  UpdateResult,
-} from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { ETaskStatus, Task } from './task.entity';
 import { CreateTaskDto } from './dto';
+import { Injectable } from '@nestjs/common';
 
-@EntityRepository()
+@Injectable()
 export class TasksRepository extends Repository<Task> {
   async createTask(dto: CreateTaskDto): Promise<Task> {
     const { title, description } = dto;
