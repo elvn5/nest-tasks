@@ -1,24 +1,10 @@
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
-import { ETaskStatus, Task } from './task.entity';
+import { Task } from './task.entity';
 import { CreateTaskDto } from './dto';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class TasksRepository extends Repository<Task> {
-  async createTask(dto: CreateTaskDto): Promise<Task> {
-    const { title, description } = dto;
-
-    const task = this.create({
-      title,
-      description,
-      status: ETaskStatus.OPEN,
-    });
-
-    await this.save(task);
-
-    return task;
-  }
-
   async deleteTask(id: string): Promise<DeleteResult> {
     return this.delete(id);
   }
