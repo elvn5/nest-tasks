@@ -15,6 +15,7 @@ import { CreateTaskDto, TaskFilterDto, UpdateTaskStatusDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('tasks')
 @UseGuards(AuthGuard())
@@ -27,6 +28,9 @@ export class TasksController {
   }
 
   @Get('/:id')
+  @ApiResponse({
+    type: Task,
+  })
   getTaskById(@Param('id') id: string): Promise<Task> {
     return this.tasksService.getTaskById(id);
   }
