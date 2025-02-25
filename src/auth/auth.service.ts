@@ -9,6 +9,7 @@ import { User } from './user.entity';
 import { AuthCredentialsDto } from './dto/auth.dto';
 import { compare, genSalt, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { SignInDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
   }
 
   async createUser(dto: AuthCredentialsDto) {
-    const { username, password } = dto;
+    const { username, password, email } = dto;
 
     const salt = await genSalt();
     const hashedPass = await hash(password, salt);
@@ -29,12 +30,13 @@ export class AuthService {
     const user = this.usersRepository.create({
       username,
       password: hashedPass,
+      email,
     });
 
     try {
       await this.usersRepository.save(user);
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      console.debug(error);
       if (error.code === '23505') {
         throw new ConflictException('Username already exists');
       } else {
@@ -43,10 +45,12 @@ export class AuthService {
     }
   }
 
-  async signin(dto: AuthCredentialsDto): Promise<{ accessToken: string }> {
+  async signin(dto: SignInDto): Promise<{ accessToken: string }> {
     const { username, password } = dto;
 
-    const user = await this.usersRepository.findOne({ where: { username } });
+    const user = await this.usersRepository.findOne({
+      where: [{ username }],
+    });
 
     const isCorrectPassword = await compare(password, user?.password || '');
 

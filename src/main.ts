@@ -12,15 +12,18 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
 
   const config = new DocumentBuilder()
-    .setTitle('Tasks')
-    .setDescription('Tasks API')
+    .setTitle('Nutrition')
+    .setDescription('Nutrition API')
     .setVersion('1.0')
-    .addTag('tasks')
+    .addTag('nutrition')
     .build();
+
+  app.setGlobalPrefix('api');
+  app.enableCors();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 4000);
 }
 void bootstrap();
