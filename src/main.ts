@@ -12,10 +12,10 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
 
   const config = new DocumentBuilder()
-    .setTitle('Nutrition')
-    .setDescription('Nutrition API')
+    .setTitle('Elixir')
+    .setDescription('Elixir API')
     .setVersion('1.0')
-    .addTag('nutrition')
+    .addTag('elixir')
     .build();
 
   app.setGlobalPrefix('api');
