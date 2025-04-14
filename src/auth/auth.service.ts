@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { User } from './user.entity';
-import { AuthCredentialsDto } from './dto/auth.dto';
+import { AuthCredentialsDto, SignInResponseDto } from './dto/auth.dto';
 import { compare, genSalt, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dto';
@@ -45,7 +45,7 @@ export class AuthService {
     }
   }
 
-  async signin(dto: SignInDto): Promise<{ accessToken: string }> {
+  async signin(dto: SignInDto): Promise<SignInResponseDto> {
     const { username, password } = dto;
 
     const user = await this.usersRepository.findOne({

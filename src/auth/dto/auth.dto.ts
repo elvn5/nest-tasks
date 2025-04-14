@@ -17,3 +17,9 @@ export class AuthCredentialsDto {
   @ApiProperty()
   password: string;
 }
+
+export class SignInResponseDto {
+  @IsString()
+  @ApiProperty()
+  accessToken: string;
+}

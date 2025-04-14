@@ -1,0 +1,8 @@
+{
+  "NOT_EMPTY": "{property} не может быть пустым",
+  "INVALID_EMAIL": "Не валидный E-mail",
+  "MIN": "{property} со значением: \"{value}\" должен быть минимум {constraints.0}",
+  "MAX": "{property} со значением: \"{value}\" должен быть меньше {constraints.0}",
+  "INVALID_STRING": "{property} должна быть строкой",
+
+}
